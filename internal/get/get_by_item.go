@@ -1,16 +1,17 @@
-package main
+package fetchData
 
 import (
 	"errors"
 	"net/http"
 
+	"example.com/rest_api/internal/data"
 	"github.com/gin-gonic/gin"
 )
 
-func getTodo(context *gin.Context) {
+func GetTodo(context *gin.Context) {
 	id := context.Param("id")
 
-	todo, err := findById(id)
+	todo, err := FindById(id)
 	if err != nil {
 		context.IndentedJSON(http.StatusNotFound, gin.H{"msg": "todo not found"})
 		return
@@ -20,10 +21,10 @@ func getTodo(context *gin.Context) {
 
 }
 
-func findById(id string) (*todo, error) {
-	for i, t := range todos {
+func FindById(id string) (*data.Todo, error) {
+	for i, t := range data.Todos {
 		if t.ID == id {
-			return &todos[i], nil
+			return &data.Todos[i], nil
 		}
 	}
 	return nil, errors.New("not found")

@@ -1,17 +1,19 @@
-package main
+package posts
 
 import (
 	"net/http"
+
+	"example.com/rest_api/internal/data"
 
 	"github.com/gin-gonic/gin"
 )
 
 // post request
-func addTodo(context *gin.Context) {
-	var newTodo todo
+func AddTodo(context *gin.Context) {
+	var newTodo data.Todo
 	if err := context.BindJSON(&newTodo); err != nil {
 		return
 	}
-	todos = append(todos, newTodo)
+	// todos = append(todos, newTodo)
 	context.IndentedJSON(http.StatusCreated, newTodo)
 }

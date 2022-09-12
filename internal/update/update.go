@@ -1,15 +1,16 @@
-package main
+package update
 
 import (
 	"net/http"
 
+	fetchData "example.com/rest_api/internal/get"
 	"github.com/gin-gonic/gin"
 )
 
-func updateToggle(context *gin.Context) {
+func UpdateToggle(context *gin.Context) {
 	id := context.Param("id")
 
-	todo, err := findById(id)
+	todo, err := fetchData.FindById(id)
 	if err != nil {
 		context.IndentedJSON(http.StatusNotFound, gin.H{"msg": "todo not found"})
 		return
